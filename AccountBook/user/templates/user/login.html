@@ -5,8 +5,22 @@
     <title>LogIn</title>
 </head>
 <body>
-<h2>login</h2>
-
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                {{ message.tags }}! {{ message.message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <h2>login</h2>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <p>email</p>
+        <input type="email" name="email"><br>
+        <p>password</p>
+        <input type="password" name="password"><br>
+        <input type="submit" value="login">
+    </form>
     <a href="{% url 'signup' %}">회원가입</a>
 </body>
 </html>
