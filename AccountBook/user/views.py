@@ -25,7 +25,7 @@ def login(request):
             user_queryset = User.objects.get(email=email)
             if check_password(request.POST['password'], user_queryset.password):
                 request.session['username'] = user_queryset.username
-                request.session['email'] = user_queryset.email
+                request.session['email_id'] = user_queryset.id
                 request.session.modified = True
                 return redirect('/account')
             else:

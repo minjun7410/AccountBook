@@ -9,8 +9,8 @@ class AccountBook(models.Model):  # 트랜잭션을 저장하는 테이블
     year = models.IntegerField(null=True)
     month = models.IntegerField(null=True)
     day = models.IntegerField(null=True)
-    description = models.CharField(max_length=200, default='')
-    location = models.CharField(max_length=50, default='')
+    description = models.CharField(max_length=200, default='', null=True)
+    location = models.CharField(max_length=50, default='', null=True)
 
     def define(self, email, price, year, month, day, description, location):
         self.email = email

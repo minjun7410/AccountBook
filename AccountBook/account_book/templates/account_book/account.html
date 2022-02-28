@@ -1,12 +1,39 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ username }}'s AccountBook</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-  <h3>Account Book</h3>
-  <span>Sum: </span> <br>
-
+    <h2>Account Book</h2>
+    <h3>{{ current_year }}년 {{ current_month }}월</h3>
+    <span>Sum: </span> <br>
+    <div id="table_size">
+    <table border="1">
+        <tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+        {% for week in day_table %}
+            <tr>
+            {% for day in week %}
+                <td>
+                <div class="td_size">
+                    <b>{{ day.0 }}</b><br>
+                    {% if day != None %}
+                        {% for tran in day.1 %}
+                            <div class="transaction">
+                                Income or Outcome : {{ tran.price }} <br>
+                                description : {{ tran.description }} <br>
+                                location : {{ tran.location }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                </td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
 </body>
 </html>

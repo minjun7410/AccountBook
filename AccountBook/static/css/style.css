@@ -1,0 +1,25 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+table, tr, td {
+    border: 1px solid black;
+    border-collapse : collapse;
+};
+#table_size {
+    margin: 5px;
+}
+.td_size {
+    height: 100px;
+    overflow: auto;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+.transaction {
+    margin: 0.2rem;
+    padding: 0.3rem;
+    font-size: 0.5rem;
+    border: 1px solid gray;
+}
