@@ -25,9 +25,6 @@ def account(request):
                     day_table[i][j] = (day+1, day_data[day-1][1])
                     day += 1
 
-
-
-
         return render(request, 'account_book/account.html', {'username': request.session['username'],
                                                              'current_year': current_year,
                                                              'current_month': current_month,
