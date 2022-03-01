@@ -1,13 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import AccountBook
 import calendar
 import datetime
 weekdays = [1,2,3,4,5,6,0]
+current_year = None
+current_month = None
 # Create your views here.
 def account(request):
     if request.method == 'GET':
         current_year = datetime.date.today().year
+        request.session['current_year'] = current_year
         current_month = datetime.date.today().month
+        request.session['current_month'] = current_month
+
         querysets = AccountBook.objects.filter(email=request.session['email_id'],
                                                month=current_month,
                                                year=current_year).order_by('day')
@@ -21,7 +26,6 @@ def account(request):
             for j in range(7):
                 if day >= monthrange[1]: break
                 if j == day_data[day][0]:
-                    print(day)
                     day_table[i][j] = (day+1, day_data[day-1][1])
                     day += 1
 
@@ -32,6 +36,15 @@ def account(request):
                                                              'day_table': day_table,
                                                              'irange': range(5),
                                                              'jrange': range(7)})
-    else:
-        return render(request, 'account_book/account.html', {'username': request.session['username']})
+    elif request.method == 'POST':
+        column = AccountBook()
+        column.email_id = request.session['email_id']
+        column.price = request.POST['price']
+        column.description = request.POST['description']
+        column.location = request.POST['location']
+        column.year = request.session['current_year']
+        column.month = request.session['current_month']
+        column.day = int(request.POST['day']) - 1
+        column.save()
+        return redirect('/account')
 

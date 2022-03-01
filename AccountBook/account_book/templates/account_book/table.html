@@ -1,0 +1,25 @@
+<table border="1">
+    <tr>
+        <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+    </tr>
+    {% for week in day_table %}
+    <tr>
+    {% for day in week %}
+        <td class="input_event">
+        <div class="td_size">
+            <b>{{ day.0 }}</b><br>
+            {% if day != None %}
+                {% for tran in day.1 %}
+                    <div class="transaction">
+                        Income or Outcome : {{ tran.price }} <br>
+                        description : {{ tran.description }} <br>
+                        location : {{ tran.location }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        </td>
+    {% endfor %}
+    </tr>
+    {% endfor %}
+</table>

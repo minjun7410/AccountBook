@@ -3,34 +3,34 @@
 {% block content %}
     <h2>Account Book</h2>
     <h3>{{ current_year }}년 {{ current_month }}월</h3>
-    <span>Sum: </span> <br>
+    <span>Sum: </span><br>
     <div id="table_size">
-    <table border="1">
-        <tr>
-            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
-        </tr>
-        {% for week in day_table %}
-        <tr>
-        {% for day in week %}
-            <td>
-            <div class="td_size">
-                <b>{{ day.0 }}</b><br>
-                {% if day != None %}
-                    {% for tran in day.1 %}
-                        <div class="transaction">
-                            Income or Outcome : {{ tran.price }} <br>
-                            description : {{ tran.description }} <br>
-                            location : {{ tran.location }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            </td>
-        {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+        {% include "account_book/table.html" %}
     </div>
+    <div id="popup">
+        <form method="POST" action="{% url 'account' %}">
+            {% csrf_token %}
+            <p>day</p>
+            <input type="number" name="day" id="target_day"> <br>
+            <p>price</p>
+            <input type="number" name="price"><br>
+            <p>description</p>
+            <input type="text" name="description"><br>
+            <p>location</p>
+            <input type="text" name="location"><br>
+            <input type="submit" value="제출">
+        </form>
+    </div>
+    <script type="text/javascript">
+        const td_list = document.querySelectorAll('.input_event')
+        console.log("hi")
+        td_list.forEach(function(td){
+            td.addEventListener('click', function(event){
+                current_day = event.target.querySelector('b').textContent
+
+                target_day = document.querySelector('#target_day')
+                target_day.value = current_day
+            })
+        })
+    </script>
 {% endblock %}
-</body>
-</html>
