@@ -22,15 +22,57 @@
         </form>
     </div>
     <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
         const td_list = document.querySelectorAll('.input_event')
-        console.log("hi")
         td_list.forEach(function(td){
             td.addEventListener('click', function(event){
-                current_day = event.target.querySelector('b').textContent
-
+                current_day = event.target.closest(".td_size").querySelector('b').textContent
                 target_day = document.querySelector('#target_day')
                 target_day.value = current_day
+
+                transaction_ls = event.target.closest(".td_size").querySelectorAll('.transaction')
+                transaction_ls.forEach(function(transaction){
+                    transaction.querySelector('.close').addEventListener('click', function(event2){
+                        $.ajax({
+                            url: '/account',
+                            method: 'DELETE',
+                            success: function(){
+                                console.log("delete success!")
+                            }
+                        })
+                    })
+                })
             })
         })
+
     </script>
 {% endblock %}

@@ -10,6 +10,7 @@ table, tr, td {
     margin: 5px;
 }
 .td_size {
+    position: relative;
     height: 100px;
     overflow: auto;
 }
@@ -18,10 +19,12 @@ table {
     width: 100%;
 }
 .transaction {
+    position: relative;
     margin: 0.2rem;
     padding: 0.3rem;
     font-size: 0.5rem;
     border: 1px solid gray;
+    z-index: -1
 }
 #popup {
     position: fixed;
@@ -30,4 +33,15 @@ table {
     backdrop-filter: blur(4px);
     background-color: #f5f5dc;
 
+}
+.close {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.close:after {
+    display: inline-block;
+    content: "\00d7";
+    font-size: 1rem;
 }

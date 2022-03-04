@@ -47,4 +47,7 @@ def account(request):
         column.day = int(request.POST['day']) - 1
         column.save()
         return redirect('/account')
+    elif request.method == 'DELETE':
+        print("delete called")
 
+        return redirect('/account')
