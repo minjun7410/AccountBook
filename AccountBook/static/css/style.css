@@ -24,7 +24,6 @@ table {
     padding: 0.3rem;
     font-size: 0.5rem;
     border: 1px solid gray;
-    z-index: -1
 }
 #popup {
     position: fixed;
@@ -33,6 +32,17 @@ table {
     backdrop-filter: blur(4px);
     background-color: #f5f5dc;
 
+}
+.insert {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 1rem;
+}
+.insert:after {
+    display: inline-block;
+    content: "\002b";
+    font-size: 1rem;
 }
 .close {
     display: inline-block;
