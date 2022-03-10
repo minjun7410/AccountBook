@@ -52,27 +52,27 @@
             }
         });
 
-        const td_list = document.querySelectorAll('.input_event')
+        const td_list = document.querySelectorAll('.insert')
         td_list.forEach(function(td){
             td.addEventListener('click', function(event){
                 current_day = event.target.closest(".td_size").querySelector('b').textContent
                 target_day = document.querySelector('#target_day')
                 target_day.value = current_day
 
-                transaction_ls = event.target.closest(".td_size").querySelectorAll('.transaction')
-                transaction_ls.forEach(function(transaction){
-                    transaction.querySelector('.close').addEventListener('click', function(event2){
-                        $.ajax({
-                            url: '/account',
-                            method: 'DELETE',
-                            success: function(){
-                                console.log("delete success!")
-                            }
-                        })
-                    })
+
+            })
+        })
+        transaction_ls = document.querySelectorAll('.transaction')
+        transaction_ls.forEach(function(transaction){
+            transaction.querySelector('.close').addEventListener('click', function(event2){
+                transaction_id = transaction.querySelector('.transaction_id').textContent
+                console.log("close"+transaction_id)
+                $.ajax({
+                    url: '/account/delete'+"?transaction_id="+transaction_id,
+                    method: 'GET',
+
                 })
             })
         })
-
     </script>
 {% endblock %}

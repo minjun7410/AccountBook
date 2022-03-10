@@ -6,8 +6,16 @@ weekdays = [1,2,3,4,5,6,0]
 current_year = None
 current_month = None
 # Create your views here.
+def delete(request):
+    if request.method == 'GET':
+        print("delete called")
+        print(request.GET['transaction_id'])
+        record = AccountBook.objects.get(id=request.GET['transaction_id'])
+        record.delete()
+        return redirect('/account/')
 def account(request):
     if request.method == 'GET':
+        print("get is loaded")
         current_year = datetime.date.today().year
         request.session['current_year'] = current_year
         current_month = datetime.date.today().month
@@ -34,8 +42,7 @@ def account(request):
                                                              'current_month': current_month,
                                                              'monthrange': monthrange,
                                                              'day_table': day_table,
-                                                             'irange': range(5),
-                                                             'jrange': range(7)})
+                                                             })
     elif request.method == 'POST':
         column = AccountBook()
         column.email_id = request.session['email_id']
@@ -46,8 +53,4 @@ def account(request):
         column.month = request.session['current_month']
         column.day = int(request.POST['day']) - 1
         column.save()
-        return redirect('/account')
-    elif request.method == 'DELETE':
-        print("delete called")
-
-        return redirect('/account')
+        return redirect('/account/')

@@ -37,7 +37,7 @@ table {
     display: inline-block;
     position: absolute;
     top: 0;
-    right: 1rem;
+    right: 0;
 }
 .insert:after {
     display: inline-block;

@@ -8,14 +8,15 @@
         <td class="input_event">
         <div class="td_size">
             <b>{{ day.0 }}</b><br>
+
+            <span class="insert"></span>
             {% if day != None %}
                 {% for tran in day.1 %}
                     <div class="transaction">
                         Income or Outcome : {{ tran.price }} <br>
                         description : {{ tran.description }} <br>
                         location : {{ tran.location }}
-
-                        <span class="insert"></span>
+                        <span class="transaction_id">{{ tran.id }}</span>
                         <span class="close"></span>
                     </div>
                 {% endfor %}
