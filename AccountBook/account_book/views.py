@@ -7,12 +7,12 @@ current_year = None
 current_month = None
 # Create your views here.
 def delete(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         print("delete called")
-        print(request.GET['transaction_id'])
-        record = AccountBook.objects.get(id=request.GET['transaction_id'])
+        print(request.POST['transaction_id'])
+        record = AccountBook.objects.get(id=request.POST['transaction_id'])
         record.delete()
-        return redirect('/account/')
+        return render(request, 'account_book/account.html')
 def account(request):
     if request.method == 'GET':
         print("get is loaded")

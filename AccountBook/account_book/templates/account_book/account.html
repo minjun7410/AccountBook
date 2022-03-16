@@ -68,9 +68,9 @@
                 transaction_id = transaction.querySelector('.transaction_id').textContent
                 console.log("close"+transaction_id)
                 $.ajax({
-                    url: '/account/delete'+"?transaction_id="+transaction_id,
-                    method: 'GET',
-
+                    url: '/account/delete',
+                    type: 'POST',
+                    data: {transaction_id: transaction_id},
                 })
             })
         })
